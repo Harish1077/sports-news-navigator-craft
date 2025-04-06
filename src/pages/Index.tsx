@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import NewsFeed from '@/components/NewsFeed';
+import ChatBot from '@/components/ChatBot';
 
 const Index = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -20,6 +21,7 @@ const Index = () => {
           </p>
         </div>
       </footer>
+      <ChatBot />
     </div>
   );
 };
