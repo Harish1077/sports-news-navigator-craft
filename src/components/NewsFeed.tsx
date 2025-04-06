@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { fetchSportsNews, getSportCategories, NewsArticle } from '@/services/newsService';
 import NewsCard from './NewsCard';
 import CategoryFilters from './CategoryFilters';
+import ArticleDetailModal from './ArticleDetailModal';
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface NewsFeedProps {
@@ -14,6 +15,8 @@ const NewsFeed = ({ searchQuery }: NewsFeedProps) => {
   const [categories, setCategories] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedArticle, setSelectedArticle] = useState<NewsArticle | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const loadNews = async () => {
@@ -31,6 +34,15 @@ const NewsFeed = ({ searchQuery }: NewsFeedProps) => {
 
     loadNews();
   }, []);
+
+  const handleArticleClick = (article: NewsArticle) => {
+    setSelectedArticle(article);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
 
   // Filter articles based on search query and selected category
   const filteredArticles = articles.filter((article) => {
@@ -69,7 +81,11 @@ const NewsFeed = ({ searchQuery }: NewsFeedProps) => {
       ) : filteredArticles.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-in">
           {filteredArticles.map((article) => (
-            <NewsCard key={article.id} article={article} />
+            <NewsCard 
+              key={article.id} 
+              article={article} 
+              onArticleClick={handleArticleClick}
+            />
           ))}
         </div>
       ) : (
@@ -82,6 +98,12 @@ const NewsFeed = ({ searchQuery }: NewsFeedProps) => {
           </p>
         </div>
       )}
+      
+      <ArticleDetailModal
+        article={selectedArticle}
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </div>
   );
 };

@@ -7,10 +7,11 @@ import { NewsArticle } from '@/services/newsService';
 
 interface NewsCardProps {
   article: NewsArticle;
+  onArticleClick: (article: NewsArticle) => void;
 }
 
-const NewsCard = ({ article }: NewsCardProps) => {
-  const { title, description, urlToImage, publishedAt, source, category, url } = article;
+const NewsCard = ({ article, onArticleClick }: NewsCardProps) => {
+  const { title, description, urlToImage, publishedAt, source, category } = article;
   
   // Format the date to "X time ago"
   const formattedDate = formatDistanceToNow(new Date(publishedAt), { addSuffix: true });
@@ -32,11 +33,9 @@ const NewsCard = ({ article }: NewsCardProps) => {
   };
 
   return (
-    <a 
-      href={url} 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="block news-card hover:scale-[1.02] transition-transform duration-300"
+    <div 
+      onClick={() => onArticleClick(article)}
+      className="cursor-pointer news-card hover:scale-[1.02] transition-transform duration-300"
     >
       <Card className="border border-gray-200 h-full flex flex-col">
         <div className="relative overflow-hidden h-48">
@@ -68,7 +67,7 @@ const NewsCard = ({ article }: NewsCardProps) => {
           </div>
         </CardContent>
       </Card>
-    </a>
+    </div>
   );
 };
 
