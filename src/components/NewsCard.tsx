@@ -62,9 +62,15 @@ const NewsCard = ({ article, onArticleClick }: NewsCardProps) => {
           
           <p className="text-sm text-muted-foreground line-clamp-3 mb-3">{description}</p>
           
-          <div className="mt-auto text-sports-red text-sm font-medium">
+          <a 
+            href={article.url} 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            onClick={(e) => e.stopPropagation()} 
+            className="mt-auto text-sports-red text-sm font-medium hover:underline"
+          >
             Read more
-          </div>
+          </a>
         </CardContent>
       </Card>
     </div>
