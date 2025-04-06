@@ -56,7 +56,10 @@ const NewsFeed = ({ searchQuery }: NewsFeedProps) => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h2 className="text-3xl font-bold mb-6 text-sports-blue">Latest Sports News</h2>
+      <div className="bg-gradient-to-r from-sports-blue to-blue-700 p-6 rounded-lg mb-8 shadow-lg">
+        <h2 className="text-3xl font-bold text-white">Latest Sports News</h2>
+        <p className="text-blue-100 mt-2">Stay updated with the latest sports coverage from around the world</p>
+      </div>
       
       <CategoryFilters 
         categories={categories} 
@@ -89,8 +92,8 @@ const NewsFeed = ({ searchQuery }: NewsFeedProps) => {
           ))}
         </div>
       ) : (
-        <div className="text-center py-12">
-          <h3 className="text-xl font-medium text-gray-600">
+        <div className="text-center py-12 bg-gray-50 rounded-lg border border-gray-200 shadow-inner">
+          <h3 className="text-xl font-medium text-sports-blue">
             No articles found matching your criteria.
           </h3>
           <p className="mt-2 text-gray-500">
